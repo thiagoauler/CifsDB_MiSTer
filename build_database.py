@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import argparse
 import hashlib
 import json
 import os
@@ -28,7 +29,7 @@ def build_rom_database(base_directory):
 
 def md5(file_path):
     h = hashlib.md5()
-    
+
     # hash the file itself
     with open(file_path, "rb", buffering=0) as f:
         # use a small buffer to compute hash to
@@ -37,7 +38,20 @@ def md5(file_path):
             h.update(b)
     return h.hexdigest()
 
-base_directory = '/Volumes/Arquivos/NoIntro/Games'
+parser = argparse.ArgumentParser(description='A simple script that generates a custom database for a shared folder to MiSTer.')
+parser.add_argument('folder_path', help='shared folder to create custom database')
+args = parser.parse_args()
+
+base_directory = args.folder_path
+
+if not os.path.exists(base_directory):
+    print('The provided path does not exist.')
+    exit()
+
+if not os.path.isdir(base_directory):
+    print('The provided path is not a folder.')
+    exit()
+
 db_files = build_rom_database(base_directory)
 
 db = {
@@ -45,14 +59,12 @@ db = {
     "db_files": [],
     "db_id": "cifs_db",
     "default_options": {},
-    "files": {},
+    "files": db_files,
     "folders": {
         "games": {}
     },
     "timestamp": int(time.time()),
     "zips": {}
 }
-
-db["files"] = db_files
 
 print(json.dumps(db))
