@@ -57,7 +57,7 @@ db_files = build_rom_database(base_directory)
 db = {
     "base_files_url": "",
     "db_files": [],
-    "db_id": "cifs_db",
+    "db_id": "cifs_roms_db",
     "default_options": {},
     "files": db_files,
     "folders": {
