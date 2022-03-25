@@ -67,4 +67,5 @@ db = {
     "zips": {}
 }
 
-print(json.dumps(db))
+with open(base_directory + '/cifs_roms_db.json', 'w') as f:
+    f.write(json.dumps(db))
