@@ -43,6 +43,7 @@ parser.add_argument('folder_path', help='shared folder to create custom database
 args = parser.parse_args()
 
 base_directory = args.folder_path
+output_database = base_directory + '/cifs_roms_db.json'
 
 if not os.path.exists(base_directory):
     print('The provided path does not exist.')
@@ -51,6 +52,9 @@ if not os.path.exists(base_directory):
 if not os.path.isdir(base_directory):
     print('The provided path is not a folder.')
     exit()
+
+if os.path.exists(output_database):
+    os.remove(output_database)
 
 db_files = build_rom_database(base_directory)
 
@@ -67,5 +71,5 @@ db = {
     "zips": {}
 }
 
-with open(base_directory + '/cifs_roms_db.json', 'w') as f:
+with open(output_database, 'w') as f:
     f.write(json.dumps(db))
