@@ -22,3 +22,6 @@ To genarate the custom database for "downloader.sh" is quite simple. Just downlo
 ```
 
 It will parse the folder and generate "cifs_rom_db.json" in that folder.
+
+**Important:** the script uses DOS line termination.
+To use in Mac/Linux you might need to convert it using ```dos2unix``` tool.
