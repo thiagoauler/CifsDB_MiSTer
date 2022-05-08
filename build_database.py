@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import time
+import urllib.parse
 
 def build_rom_database(base_directory):
     db_files = {}
@@ -21,7 +22,7 @@ def build_rom_database(base_directory):
                 "hash": file_hash,
                 "overwrite": "true",
                 "size": file_size,
-                "url": "file:///media/fat/cifs" + file_path
+                "url": "file://" + urllib.parse.quote("/media/fat/cifs" + file_path)
             }
             
             db_files["games" + file_path] = db_game
